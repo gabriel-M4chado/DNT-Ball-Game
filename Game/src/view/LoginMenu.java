@@ -13,6 +13,7 @@ public class LoginMenu {
         telaLogin.setSize(400, 300);
         telaLogin.setResizable(false);
         telaLogin.setVisible(true);
+        telaLogin.setLocationRelativeTo(null);
     }
     
 }
