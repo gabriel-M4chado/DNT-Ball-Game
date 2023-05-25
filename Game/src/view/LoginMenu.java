@@ -9,6 +9,7 @@ public class LoginMenu {
     private JLabel codigoLabel;
     private JTextField codigoField;
     private JButton playGameButton;
+    private JButton criaContaButton;
 
     public LoginMenu(){
         telaLogin = new JFrame("BEM-VINDO");
@@ -35,11 +36,20 @@ public class LoginMenu {
         playGameButton.setBackground(Color.BLACK);
         playGameButton.setForeground(Color.WHITE);
 
-        atributosGrid.gridx = 0;
-        atributosGrid.gridy = 2;
-        atributosGrid.gridwidth = 2;
+        atributosGrid.gridx = 2;
+        atributosGrid.gridy = 0;
         atributosGrid.anchor = GridBagConstraints.CENTER; /* Aqui determina como um componente é posicionado dentro de tela quando não preenche todo o espaço disponível em tela*/
         containerTela.add(playGameButton,atributosGrid);
+
+        criaContaButton = new JButton("CRIAR CONTA");
+        criaContaButton.setBackground(Color.BLACK);
+        criaContaButton.setForeground(Color.WHITE);
+
+        atributosGrid.gridx = 2;
+        atributosGrid.gridy = 1;
+        atributosGrid.anchor = GridBagConstraints.CENTER; 
+
+        containerTela.add(criaContaButton,atributosGrid);
 
         telaLogin.getContentPane().add(containerTela);
 
