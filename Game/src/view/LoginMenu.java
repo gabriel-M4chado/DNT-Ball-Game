@@ -2,8 +2,10 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class LoginMenu {
+public class LoginMenu implements ActionListener{
     private JFrame telaLogin;
     private JPanel containerTela;
     private JLabel codigoLabel;
@@ -42,12 +44,14 @@ public class LoginMenu {
         criaContaButton.setBackground(Color.BLACK);
         criaContaButton.setForeground(Color.WHITE);
 
+        criaContaButton.addActionListener(this);
         containerButton.add(criaContaButton);
 
         playGameButton = new JButton("PLAY");
         playGameButton.setBackground(Color.BLACK);
         playGameButton.setForeground(Color.WHITE);
 
+        playGameButton.addActionListener(this);
         containerButton.add(playGameButton);
 
         containerTela.add(containerButton,atributosGrid);
@@ -59,5 +63,16 @@ public class LoginMenu {
         telaLogin.setVisible(true);
         telaLogin.setLocationRelativeTo(null);
 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == playGameButton) {
+            System.out.println("Clicou Play");
+        }
+
+        if (e.getSource() == criaContaButton) {
+            System.out.println("Clicou Cria Conta");
+        }
     }
 }
