@@ -32,24 +32,25 @@ public class LoginMenu {
         atributosGrid.gridy = 0;
         containerTela.add(codigoField, atributosGrid);
 
-        playGameButton = new JButton("PLAY");
-        playGameButton.setBackground(Color.BLACK);
-        playGameButton.setForeground(Color.WHITE);
-
-        atributosGrid.gridx = 2;
-        atributosGrid.gridy = 0;
-        atributosGrid.anchor = GridBagConstraints.CENTER; /* Aqui determina como um componente é posicionado dentro de tela quando não preenche todo o espaço disponível em tela*/
-        containerTela.add(playGameButton,atributosGrid);
+        /* Aqui organiza os botões em uma única linha horizontal*/
+        JPanel containerButton = new JPanel(new FlowLayout());
+        atributosGrid.gridx = 1;
+        atributosGrid.gridy = 1;
+        containerTela.add(containerButton, atributosGrid);
 
         criaContaButton = new JButton("CRIAR CONTA");
         criaContaButton.setBackground(Color.BLACK);
         criaContaButton.setForeground(Color.WHITE);
 
-        atributosGrid.gridx = 2;
-        atributosGrid.gridy = 1;
-        atributosGrid.anchor = GridBagConstraints.CENTER; 
+        containerButton.add(criaContaButton);
 
-        containerTela.add(criaContaButton,atributosGrid);
+        playGameButton = new JButton("PLAY");
+        playGameButton.setBackground(Color.BLACK);
+        playGameButton.setForeground(Color.WHITE);
+
+        containerButton.add(playGameButton);
+
+        containerTela.add(containerButton,atributosGrid);
 
         telaLogin.getContentPane().add(containerTela);
 
