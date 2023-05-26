@@ -37,7 +37,7 @@ public class TelaCadastro extends JFrame implements ActionListener{
         int opcao = JOptionPane.showConfirmDialog(
                 frame,
                 "Você não finalizou o cadastro, tem certeza que deseja sair ?",
-                "Saindo da tela de cadastro",
+                "ATENÇÃO",
                 JOptionPane.YES_NO_OPTION
         );
 
