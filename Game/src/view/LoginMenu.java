@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LoginMenu implements ActionListener{
+public class LoginMenu extends JFrame implements ActionListener{
     private JFrame telaLogin;
     private JPanel containerTela;
     private JLabel codigoLabel;
@@ -73,6 +73,9 @@ public class LoginMenu implements ActionListener{
 
         if (e.getSource() == criaContaButton) {
             System.out.println("Clicou Cria Conta");
+            telaLogin.dispose();
+            TelaCadastro cadastro = new TelaCadastro();
         }
     }
+
 }
