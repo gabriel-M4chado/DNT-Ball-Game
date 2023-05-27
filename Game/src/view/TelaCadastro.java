@@ -22,6 +22,10 @@ public class TelaCadastro extends JFrame implements ActionListener {
     private JTextField jtfCode;
     private JLabel lblSexo;
     private JComboBox<String> selectSexo;
+    private JLabel lblUf;
+    private JComboBox<String> selectUf;
+    private JLabel lblRua;
+    private JTextField jtfRua;
 
     public TelaCadastro() {
         this.telaCadastro = new JFrame("Cadastro");
@@ -36,7 +40,7 @@ public class TelaCadastro extends JFrame implements ActionListener {
         containerTela = formCadastro();
 
         telaCadastro.setContentPane(containerTela);
-        telaCadastro.setSize(480, 600);
+        telaCadastro.setSize(550, 600);
         telaCadastro.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         telaCadastro.setResizable(false);
         telaCadastro.setVisible(true);
@@ -53,7 +57,7 @@ public class TelaCadastro extends JFrame implements ActionListener {
         atributosGrid.insets = new Insets(15, 5, 5, 5);
 
         lblNome = new JLabel("Nome:");
-        jtfNome = new JTextField(21);
+        jtfNome = new JTextField(20);
 
         atributosGrid.gridx = 0;
         atributosGrid.gridy = 0;
@@ -63,8 +67,19 @@ public class TelaCadastro extends JFrame implements ActionListener {
         atributosGrid.gridy = 0;
         containerTela.add(jtfNome, atributosGrid);
 
+        lblSexo = new JLabel("Sexo:");
+        selectSexo = new JComboBox<>(new String[]{"Masculino", "Feminino"});
+
+        atributosGrid.gridx = 2;
+        atributosGrid.gridy = 0;
+        containerTela.add(lblSexo, atributosGrid);
+
+        atributosGrid.gridx = 3;
+        atributosGrid.gridy = 0;
+        containerTela.add(selectSexo, atributosGrid);
+
         lblEmail = new JLabel("E-mail:");
-        jtfEmail = new JTextField(21);
+        jtfEmail = new JTextField(20);
 
         atributosGrid.gridx = 0;
         atributosGrid.gridy = 1;
@@ -72,6 +87,7 @@ public class TelaCadastro extends JFrame implements ActionListener {
 
         atributosGrid.gridx = 1;
         atributosGrid.gridy = 1;
+        atributosGrid.gridwidth = 3;
         containerTela.add(jtfEmail, atributosGrid);
 
         lblCode = new JLabel("Code:");
@@ -79,25 +95,38 @@ public class TelaCadastro extends JFrame implements ActionListener {
 
         atributosGrid.gridx = 2;
         atributosGrid.gridy = 1;
+        atributosGrid.gridwidth = 1;
         containerTela.add(lblCode, atributosGrid);
 
         atributosGrid.gridx = 3;
         atributosGrid.gridy = 1;
+        atributosGrid.gridwidth = 2;
         containerTela.add(jtfCode, atributosGrid);
 
-        lblSexo = new JLabel("Sexo:");
-        selectSexo = new JComboBox(new String[]{"Masculino", "Feminino"});
+        lblRua = new JLabel("Rua:");
+        jtfRua = new JTextField(20);
 
         atributosGrid.gridx = 0;
         atributosGrid.gridy = 2;
-        containerTela.add(lblSexo, atributosGrid);
+        containerTela.add(lblRua, atributosGrid);
 
         atributosGrid.gridx = 1;
         atributosGrid.gridy = 2;
-        containerTela.add(selectSexo, atributosGrid);
+        containerTela.add(jtfRua, atributosGrid);
+
+        lblUf = new JLabel("UF:");
+        selectUf = new JComboBox<>((new String[] { "", "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RS", "SC", "SE", "SP", "TO" }));
+
+        atributosGrid.gridx = 2;
+        atributosGrid.gridy = 2;
+        containerTela.add(lblUf, atributosGrid);
+
+        atributosGrid.gridx = 3;
+        atributosGrid.gridy = 2;
+        containerTela.add(selectUf, atributosGrid);
 
         atributosGrid.gridx = 0;
-        atributosGrid.gridy = 3;
+        atributosGrid.gridy = 4;
         atributosGrid.weighty = 1.0;
         atributosGrid.anchor = GridBagConstraints.NORTH;
         containerTela.add(Box.createVerticalGlue(), atributosGrid);
