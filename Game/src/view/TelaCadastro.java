@@ -10,8 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-
-public class TelaCadastro extends JFrame implements ActionListener{
+public class TelaCadastro extends JFrame implements ActionListener {
 
     private JFrame telaCadastro;
     private JPanel containerTela;
@@ -19,8 +18,10 @@ public class TelaCadastro extends JFrame implements ActionListener{
     private JTextField jtfNome;
     private JLabel lblEmail;
     private JTextField jtfEmail;
-    
-    public TelaCadastro (){
+    private JLabel lblCode;
+    private JTextField jtfCode;
+
+    public TelaCadastro() {
         this.telaCadastro = new JFrame("Cadastro");
 
         telaCadastro.addWindowListener(new WindowAdapter() {
@@ -33,7 +34,7 @@ public class TelaCadastro extends JFrame implements ActionListener{
         containerTela = formCadastro();
 
         telaCadastro.setContentPane(containerTela);
-        telaCadastro.setSize(450, 600);
+        telaCadastro.setSize(480, 600);
         telaCadastro.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         telaCadastro.setResizable(false);
         telaCadastro.setVisible(true);
@@ -42,18 +43,15 @@ public class TelaCadastro extends JFrame implements ActionListener{
 
     public JPanel formCadastro() {
 
-        lblNome = new JLabel("Nome:");
-        jtfNome = new JTextField(20);
-
-        lblEmail = new JLabel("E-mail:");
-        jtfEmail = new JTextField(20);
-
         containerTela = new JPanel();
         containerTela.setLayout(new GridBagLayout());
 
         GridBagConstraints atributosGrid = new GridBagConstraints();
         atributosGrid.anchor = GridBagConstraints.WEST;
-        atributosGrid.insets = new Insets(5, 5, 5, 5);
+        atributosGrid.insets = new Insets(15, 5, 5, 5);
+
+        lblNome = new JLabel("Nome:");
+        jtfNome = new JTextField(21);
 
         atributosGrid.gridx = 0;
         atributosGrid.gridy = 0;
@@ -63,13 +61,27 @@ public class TelaCadastro extends JFrame implements ActionListener{
         atributosGrid.gridy = 0;
         containerTela.add(jtfNome, atributosGrid);
 
+        lblEmail = new JLabel("E-mail:");
+        jtfEmail = new JTextField(21);
+
         atributosGrid.gridx = 0;
-        atributosGrid.gridy = 2;
+        atributosGrid.gridy = 1;
         containerTela.add(lblEmail, atributosGrid);
 
         atributosGrid.gridx = 1;
-        atributosGrid.gridy = 2;
+        atributosGrid.gridy = 1;
         containerTela.add(jtfEmail, atributosGrid);
+
+        lblCode = new JLabel("Code:");
+        jtfCode = new JTextField(8);
+
+        atributosGrid.gridx = 2;
+        atributosGrid.gridy = 1;
+        containerTela.add(lblCode, atributosGrid);
+
+        atributosGrid.gridx = 3;
+        atributosGrid.gridy = 1;
+        containerTela.add(jtfCode, atributosGrid);
 
         atributosGrid.gridx = 0;
         atributosGrid.gridy = 3;
@@ -90,12 +102,11 @@ public class TelaCadastro extends JFrame implements ActionListener{
                 frame,
                 "Você não finalizou o cadastro, tem certeza que deseja sair ?",
                 "ATENÇÃO",
-                JOptionPane.YES_NO_OPTION
-        );
+                JOptionPane.YES_NO_OPTION);
 
         if (opcao == JOptionPane.YES_OPTION) {
             new LoginMenu();
-            frame.dispose(); 
+            frame.dispose();
         }
     }
 

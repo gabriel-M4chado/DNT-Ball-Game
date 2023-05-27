@@ -74,7 +74,7 @@ public class LoginMenu extends JFrame implements ActionListener{
         if (e.getSource() == criaContaButton) {
             System.out.println("Clicou Cria Conta");
             telaLogin.dispose();
-            TelaCadastro cadastro = new TelaCadastro();
+            new TelaCadastro();
         }
     }
 
