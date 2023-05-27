@@ -73,6 +73,7 @@ public class TelaCadastro extends JFrame implements ActionListener{
 
         atributosGrid.gridx = 0;
         atributosGrid.gridy = 3;
+        atributosGrid.weighty = 1.0;
         atributosGrid.anchor = GridBagConstraints.NORTH;
         containerTela.add(Box.createVerticalGlue(), atributosGrid);
 
