@@ -2,6 +2,7 @@ package view;
 
 import javax.swing.*;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -26,6 +27,8 @@ public class TelaCadastro extends JFrame implements ActionListener {
     private JComboBox<String> selectUf;
     private JLabel lblRua;
     private JTextField jtfRua;
+    private JButton jbSalvar;
+    private JButton jbCancelar;
 
     public TelaCadastro() {
         this.telaCadastro = new JFrame("Cadastro");
@@ -40,7 +43,7 @@ public class TelaCadastro extends JFrame implements ActionListener {
         containerTela = formCadastro();
 
         telaCadastro.setContentPane(containerTela);
-        telaCadastro.setSize(550, 600);
+        telaCadastro.setSize(550, 230);
         telaCadastro.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         telaCadastro.setResizable(false);
         telaCadastro.setVisible(true);
@@ -125,18 +128,35 @@ public class TelaCadastro extends JFrame implements ActionListener {
         atributosGrid.gridy = 2;
         containerTela.add(selectUf, atributosGrid);
 
+        jbCancelar = new JButton("CANCELAR");
+        jbCancelar.addActionListener(this);
+
+        jbCancelar.setBackground(Color.BLACK);
+        jbCancelar.setForeground(Color.WHITE);
         atributosGrid.gridx = 0;
         atributosGrid.gridy = 4;
-        atributosGrid.weighty = 1.0;
-        atributosGrid.anchor = GridBagConstraints.NORTH;
-        containerTela.add(Box.createVerticalGlue(), atributosGrid);
+        atributosGrid.anchor = GridBagConstraints.CENTER;
+        containerTela.add(jbCancelar, atributosGrid);
+
+        jbSalvar = new JButton("SALVAR");
+        jbSalvar.addActionListener(this);
+
+        jbSalvar.setBackground(Color.BLACK);
+        jbSalvar.setForeground(Color.WHITE);
+        atributosGrid.gridx = 1;
+        atributosGrid.gridy = 4;
+        atributosGrid.anchor = GridBagConstraints.LINE_END;
+        containerTela.add(jbSalvar, atributosGrid);
 
         return containerTela;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        if (e.getSource() == jbCancelar) {
+            System.out.println("Clicou em Cancelar");
+            confirmaSairTelaCadastro(telaCadastro);
+        }
     }
 
     private static void confirmaSairTelaCadastro(JFrame frame) {
