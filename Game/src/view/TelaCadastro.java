@@ -20,6 +20,8 @@ public class TelaCadastro extends JFrame implements ActionListener {
     private JTextField jtfEmail;
     private JLabel lblCode;
     private JTextField jtfCode;
+    private JLabel lblSexo;
+    private JComboBox<String> selectSexo;
 
     public TelaCadastro() {
         this.telaCadastro = new JFrame("Cadastro");
@@ -82,6 +84,17 @@ public class TelaCadastro extends JFrame implements ActionListener {
         atributosGrid.gridx = 3;
         atributosGrid.gridy = 1;
         containerTela.add(jtfCode, atributosGrid);
+
+        lblSexo = new JLabel("Sexo:");
+        selectSexo = new JComboBox(new String[]{"Masculino", "Feminino"});
+
+        atributosGrid.gridx = 0;
+        atributosGrid.gridy = 2;
+        containerTela.add(lblSexo, atributosGrid);
+
+        atributosGrid.gridx = 1;
+        atributosGrid.gridy = 2;
+        containerTela.add(selectSexo, atributosGrid);
 
         atributosGrid.gridx = 0;
         atributosGrid.gridy = 3;
