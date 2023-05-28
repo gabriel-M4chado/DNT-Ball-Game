@@ -14,7 +14,7 @@ public class TelaGame{
         jfTelaGame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                Avisos.main(jfTelaGame);
+                Avisos.main(jfTelaGame,"Deseja realmente sair do Game ?");
             }
         });
 

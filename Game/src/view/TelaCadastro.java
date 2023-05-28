@@ -29,6 +29,7 @@ public class TelaCadastro extends JFrame implements ActionListener {
     private JTextField jtfRua;
     private JButton jbSalvar;
     private JButton jbCancelar;
+    private String fraseAviso = "Você não finalizou o cadastro, tem certeza que deseja sair ?";
 
     public TelaCadastro() {
         this.telaCadastro = new JFrame("Cadastro");
@@ -36,7 +37,7 @@ public class TelaCadastro extends JFrame implements ActionListener {
         telaCadastro.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                Avisos.main(telaCadastro);
+                Avisos.main(telaCadastro, fraseAviso);
             }
         });
 
@@ -155,21 +156,7 @@ public class TelaCadastro extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == jbCancelar) {
             System.out.println("Clicou em Cancelar");
-            confirmaSairTelaCadastro(telaCadastro);
+            Avisos.main(telaCadastro,fraseAviso);
         }
     }
-
-    private static void confirmaSairTelaCadastro(JFrame frame) {
-        int opcao = JOptionPane.showConfirmDialog(
-                frame,
-                "Você não finalizou o cadastro, tem certeza que deseja sair ?",
-                "ATENÇÃO",
-                JOptionPane.YES_NO_OPTION);
-
-        if (opcao == JOptionPane.YES_OPTION) {
-            new LoginMenu();
-            frame.dispose();
-        }
-    }
-
 }
