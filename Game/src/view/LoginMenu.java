@@ -41,8 +41,8 @@ public class LoginMenu extends JFrame implements ActionListener{
         containerTela.add(containerButton, atributosGrid);
 
         criaContaButton = new JButton("CRIAR CONTA");
-        criaContaButton.setBackground(Color.BLACK);
-        criaContaButton.setForeground(Color.WHITE);
+        criaContaButton.setBackground(Color.WHITE);
+        criaContaButton.setForeground(Color.BLACK);
 
         criaContaButton.addActionListener(this);
         containerButton.add(criaContaButton);
