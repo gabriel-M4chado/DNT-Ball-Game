@@ -69,13 +69,15 @@ public class LoginMenu extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == playGameButton) {
             System.out.println("Clicou Play");
+            new TelaGame();
         }
 
         if (e.getSource() == criaContaButton) {
             System.out.println("Clicou Cria Conta");
-            telaLogin.dispose();
             new TelaCadastro();
         }
+
+        telaLogin.dispose();
     }
 
 }

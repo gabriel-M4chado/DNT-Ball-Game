@@ -36,7 +36,7 @@ public class TelaCadastro extends JFrame implements ActionListener {
         telaCadastro.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                confirmaSairTelaCadastro(telaCadastro);
+                Avisos.main(telaCadastro);
             }
         });
 
