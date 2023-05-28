@@ -131,8 +131,8 @@ public class TelaCadastro extends JFrame implements ActionListener {
         jbCancelar = new JButton("CANCELAR");
         jbCancelar.addActionListener(this);
 
-        jbCancelar.setBackground(Color.BLACK);
-        jbCancelar.setForeground(Color.WHITE);
+        jbCancelar.setBackground(Color.WHITE);
+        jbCancelar.setForeground(Color.BLACK);
         atributosGrid.gridx = 0;
         atributosGrid.gridy = 4;
         atributosGrid.anchor = GridBagConstraints.CENTER;
