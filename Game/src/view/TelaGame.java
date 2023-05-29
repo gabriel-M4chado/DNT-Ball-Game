@@ -1,11 +1,7 @@
 package view;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-/* import view.BallGame; */
-
 import javax.swing.*;
 
 public class TelaGame{
