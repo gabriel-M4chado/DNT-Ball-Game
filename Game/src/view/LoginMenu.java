@@ -68,8 +68,13 @@ public class LoginMenu extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == playGameButton) {
-            System.out.println("Clicou Play");
-            new TelaGame();
+            if (!codigoField.getText().isEmpty()) {
+                System.out.println("Clicou Play");
+                new TelaGame();
+            }else{
+                JOptionPane.showMessageDialog(null, "Insira o código da conta antes de jogar.");
+                return ;
+            }
         }
 
         if (e.getSource() == criaContaButton) {
@@ -78,6 +83,10 @@ public class LoginMenu extends JFrame implements ActionListener{
         }
 
         telaLogin.dispose();
+    }
+
+    private Object LoginMenu() {
+        return null;
     }
 
 }
