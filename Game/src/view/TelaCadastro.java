@@ -16,17 +16,17 @@ public class TelaCadastro extends JFrame implements ActionListener {
     private JFrame telaCadastro;
     private JPanel containerTela;
     private JLabel lblNome;
-    private JTextField jtfNome;
+    private static JTextField jtfNome;
     private JLabel lblEmail;
-    private JTextField jtfEmail;
+    private static JTextField jtfEmail;
     private JLabel lblCode;
-    private JTextField jtfCode;
+    private static JTextField jtfCode;
     private JLabel lblSexo;
-    private JComboBox<String> selectSexo;
+    private static JComboBox<String> selectSexo;
     private JLabel lblUf;
-    private JComboBox<String> selectUf;
+    private static JComboBox<String> selectUf;
     private JLabel lblRua;
-    private JTextField jtfRua;
+    private static JTextField jtfRua;
     private JButton jbSalvar;
     private JButton jbCancelar;
     private String fraseAviso = "Você não finalizou o cadastro, tem certeza que deseja sair ?";
@@ -37,7 +37,7 @@ public class TelaCadastro extends JFrame implements ActionListener {
         telaCadastro.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                Avisos.main(telaCadastro, fraseAviso);
+                Avisos.confirmaSairTelaCadastro(telaCadastro, fraseAviso);
             }
         });
 
@@ -152,11 +152,29 @@ public class TelaCadastro extends JFrame implements ActionListener {
         return containerTela;
     }
 
+    private static boolean validaFormularioCadastro(){
+        if(jtfNome.getText().isEmpty() || jtfEmail.getText().isEmpty() ||
+            jtfCode.getText().isEmpty() || selectSexo.getSelectedItem() == null ||
+            selectUf.getSelectedItem() == "" || jtfRua.getText().isEmpty()){
+            return true;
+        }
+
+        return false;
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == jbCancelar) {
             System.out.println("Clicou em Cancelar");
-            Avisos.main(telaCadastro,fraseAviso);
+            Avisos.confirmaSairTelaCadastro(telaCadastro,fraseAviso);
+        }
+
+        if (e.getSource() == jbSalvar) {
+            if (validaFormularioCadastro()) {
+                JOptionPane.showMessageDialog(null, "Prencha todos os campos do cadastro para salvar!", "ERRO", JOptionPane.ERROR_MESSAGE);
+                return ;
+            }
+
+            JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso.");
         }
     }
 }
