@@ -71,7 +71,7 @@ public class LoginMenu extends JFrame implements ActionListener{
             if (!codigoField.getText().isEmpty()) {
                 new TelaGame();
             }else{
-                JOptionPane.showMessageDialog(null, "Insira o código da conta antes de jogar.", "ERRO", JOptionPane.ERROR_MESSAGE);
+                Avisos.geraMensagemErro("Insira o código da conta antes de jogar.");
                 return ;
             }
         }

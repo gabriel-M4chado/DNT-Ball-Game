@@ -170,7 +170,7 @@ public class TelaCadastro extends JFrame implements ActionListener {
 
         if (e.getSource() == jbSalvar) {
             if (validaFormularioCadastro()) {
-                JOptionPane.showMessageDialog(null, "Prencha todos os campos do cadastro para salvar!", "ERRO", JOptionPane.ERROR_MESSAGE);
+                Avisos.geraMensagemErro("Prencha todos os campos do cadastro para salvar!");
                 return ;
             }
 

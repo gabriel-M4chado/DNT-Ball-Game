@@ -16,4 +16,8 @@ public class Avisos {
             frame.dispose();
         }
     }
+
+    public static void geraMensagemErro(String fraseErro) {
+        JOptionPane.showMessageDialog(null, fraseErro, "ERRO", JOptionPane.ERROR_MESSAGE);
+    }
 }
