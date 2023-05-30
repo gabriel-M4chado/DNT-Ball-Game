@@ -164,7 +164,6 @@ public class TelaCadastro extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == jbCancelar) {
-            System.out.println("Clicou em Cancelar");
             Avisos.confirmaSairTelaCadastro(telaCadastro,fraseAviso);
         }
 
