@@ -69,7 +69,6 @@ public class LoginMenu extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == playGameButton) {
             if (!codigoField.getText().isEmpty()) {
-                System.out.println("Clicou Play");
                 new TelaGame();
             }else{
                 JOptionPane.showMessageDialog(null, "Insira o código da conta antes de jogar.");
@@ -78,7 +77,6 @@ public class LoginMenu extends JFrame implements ActionListener{
         }
 
         if (e.getSource() == criaContaButton) {
-            System.out.println("Clicou Cria Conta");
             new TelaCadastro();
         }
 
