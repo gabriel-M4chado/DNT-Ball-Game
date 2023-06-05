@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class BallGame extends JPanel implements KeyListener {
@@ -88,7 +90,7 @@ public class BallGame extends JPanel implements KeyListener {
                     eixoY += direacoY;
 
                     if (eixoX - raioBall < 0) {
-                        direcaoX = -direcaoX; /* inverve a direcao */
+                        direcaoX = -direcaoX; /* inverte a direção */
                         eixoX = raioBall; /* evitar que saia da tela*/
                     } else if (eixoX + raioBall > largura) {
                         direcaoX = -direcaoX; 
@@ -96,25 +98,45 @@ public class BallGame extends JPanel implements KeyListener {
                     }
 
                     if (eixoY - raioBall < 0) {
-                        direacoY = -direacoY; /* inverve a direcao */
+                        direacoY = -direacoY; /* inverte a direção */
                         eixoY = raioBall; /* evitar que saia da tela */
                     } else if (eixoY + raioBall > altura) {
                         direacoY = -direacoY;
                         eixoY = altura - raioBall;
                     }
 
-                    repaint();
-
                     /* atraso de 50 milissegundos entre cada iteração  da animacao da bola*/
                     try {
                         Thread.sleep(50);
+                        verificaColisaoBall();
                     } catch (InterruptedException ex) {
                         System.out.println("Thread sleep foi interrompida: " + ex.getMessage());
                     }
+
+                    repaint();
                 }
             }
         };
 
         thread.start();
     }
+
+    private void verificaColisaoBall() {
+        int ballTop = (int)(eixoY - raioBall);
+        int ballBottom = (int)(eixoY + raioBall);
+        int lineY = getHeight() - 20;
+        int barraBottom = lineY + 40;
+    
+        if (ballBottom >= lineY && ballTop <= barraBottom) {
+            int ballLeft = (int)(eixoX - raioBall);
+            int ballRight = (int)(eixoX + raioBall);
+            int barraLeft = lineX;
+            int barraRight = lineX + 200;
+    
+            if (ballRight >= barraLeft && ballLeft <= barraRight) {
+                JOptionPane.showMessageDialog(this, "A BOLA ACERTOU A BARRA","FIM DE JOGO", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+    }
+    
 }
