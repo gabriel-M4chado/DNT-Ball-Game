@@ -7,45 +7,47 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 public class BallGame extends JPanel implements KeyListener {
 
-    //Medidas Barra
+    // Medidas Barra
     private int lineX = (getWidth() - 200) / 2;
     private int lineWidth = 200;
 
-    //Dimensões da tela, onde a bola irá listar
+    // Dimensões da tela, onde a bola irá listar
     private int largura;
     private int altura;
 
-    //Medidas da bola
+    // Medidas da bola
     private float raioBall = 40;
     private float diametroBall = raioBall * 2;
 
-    //Cordenadas bola
+    // Cordenadas bola
     private float eixoX = raioBall + 50;
     private float eixoY = raioBall + 20;
 
-    //Direcao bola
+    // Direcao bola
     private float direcaoX = 3;
     private float direacoY = 3;
+    private Thread thread;
+    private Boolean animacao;
 
     public BallGame() {
         addKeyListener(this);
 
-        setFocusable(true); //Dando foco ao Jpanel para receber eventos do KeyListener
+        setFocusable(true); // Dando foco ao Jpanel para receber eventos do KeyListener
         requestFocus();
-
         iniciaAnimacao();
     }
 
     protected void paintComponent(Graphics ball) {
-        //desenha bola
+        // desenha bola
         super.paintComponent(ball);
         ball.setColor(Color.RED);
         ball.fillOval((int) (eixoX - raioBall), (int) (eixoY - raioBall), (int) diametroBall, (int) diametroBall);
 
-        //desenha Barra do jogo
+        // desenha Barra do jogo
         ball.setColor(Color.BLACK);
         int lineY = getHeight() - 20;
         ball.fillRect(lineX, lineY, lineWidth, 10);
@@ -53,13 +55,13 @@ public class BallGame extends JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        //move a linha para esquerda 10px
+        // move a linha para esquerda 10px
         if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             if (lineX > 0) {
                 lineX -= 10;
             }
         }
-        //move a linha para direita 10px
+        // move a linha para direita 10px
         if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             int lineWidth = 200;
             if (lineX + lineWidth < getWidth()) {
@@ -79,9 +81,10 @@ public class BallGame extends JPanel implements KeyListener {
     }
 
     public void iniciaAnimacao() {
-        Thread thread = new Thread() {
+        animacao = true;
+        thread = new Thread() {
             public void run() {
-                while (true) {
+                while (animacao) {
                     /* Pegando a dimensões da tela */
                     largura = getWidth();
                     altura = getHeight();
@@ -91,9 +94,9 @@ public class BallGame extends JPanel implements KeyListener {
 
                     if (eixoX - raioBall < 0) {
                         direcaoX = -direcaoX; /* inverte a direção */
-                        eixoX = raioBall; /* evitar que saia da tela*/
+                        eixoX = raioBall; /* evitar que saia da tela */
                     } else if (eixoX + raioBall > largura) {
-                        direcaoX = -direcaoX; 
+                        direcaoX = -direcaoX;
                         eixoX = largura - raioBall;
                     }
 
@@ -105,7 +108,7 @@ public class BallGame extends JPanel implements KeyListener {
                         eixoY = altura - raioBall;
                     }
 
-                    /* atraso de 50 milissegundos entre cada iteração  da animacao da bola*/
+                    /* atraso de 50 milissegundos entre cada iteração da animacao da bola */
                     try {
                         Thread.sleep(50);
                         verificaColisaoBall();
@@ -122,21 +125,27 @@ public class BallGame extends JPanel implements KeyListener {
     }
 
     private void verificaColisaoBall() {
-        int ballTop = (int)(eixoY - raioBall);
-        int ballBottom = (int)(eixoY + raioBall);
+        int ballTop = (int) (eixoY - raioBall);
+        int ballBottom = (int) (eixoY + raioBall);
         int lineY = getHeight() - 20;
         int barraBottom = lineY + 40;
-    
+
         if (ballBottom >= lineY && ballTop <= barraBottom) {
-            int ballLeft = (int)(eixoX - raioBall);
-            int ballRight = (int)(eixoX + raioBall);
+            int ballLeft = (int) (eixoX - raioBall);
+            int ballRight = (int) (eixoX + raioBall);
             int barraLeft = lineX;
             int barraRight = lineX + 200;
-    
+
             if (ballRight >= barraLeft && ballLeft <= barraRight) {
-                JOptionPane.showMessageDialog(this, "A BOLA ACERTOU A BARRA","FIM DE JOGO", JOptionPane.INFORMATION_MESSAGE);
+                int opcao = JOptionPane.showOptionDialog(this, "A BOLA ACERTOU A BARRA", "FIM DE JOGO", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+
+                if (opcao == JOptionPane.OK_OPTION || opcao == JOptionPane.CLOSED_OPTION) {
+                    new TelaEndGame();
+                    SwingUtilities.getWindowAncestor(this).dispose();
+                    animacao = false;
+                }
             }
         }
     }
-    
+
 }
