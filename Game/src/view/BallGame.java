@@ -146,5 +146,4 @@ public class BallGame extends JPanel implements KeyListener {
             }
         }
     }
-
 }
