@@ -6,4 +6,4 @@
 
 [Wireframe Tela Game](https://prnt.sc/HBuwr4Zg7Lw_)
 
-[Wireframe Tela END GAME](https://prnt.sc/PqP-tpfOFTqy)
+[Wireframe Tela END GAME](https://prnt.sc/e0Rhk_N33y6v)
