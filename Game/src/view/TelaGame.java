@@ -9,15 +9,23 @@ public class TelaGame{
 
     public TelaGame() {
         jfTelaGame = new JFrame("Game");
+        BallGame ball = new BallGame();
 
         jfTelaGame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                Avisos.confirmaSairTelaCadastro(jfTelaGame,"Deseja realmente sair do Game ?");
+                ball.stopAnimacao(true);
+                if(!Avisos.confirmaSairTelaCadastro(jfTelaGame,"Deseja realmente sair do Game ?")) {
+                    ball.stopAnimacao(false);
+                }else{
+                    jfTelaGame.getContentPane().remove(ball);
+                    jfTelaGame.dispose();
+                }
             }
         });
+
         
-        jfTelaGame.getContentPane().add(new BallGame());
+        jfTelaGame.getContentPane().add(ball);
         jfTelaGame.setSize(400, 300);
         jfTelaGame.setResizable(false);
         jfTelaGame.setVisible(true);

@@ -80,10 +80,10 @@ public class BallGame extends JPanel implements KeyListener {
     }
 
     public void iniciaAnimacao() {
-        animacao = true;
+        animacao = false;
         thread = new Thread() {
             public void run() {
-                while (animacao) {
+                while (!animacao) {
                     /* Pegando a dimensões da tela */
                     largura = getWidth();
                     altura = getHeight();
@@ -136,14 +136,22 @@ public class BallGame extends JPanel implements KeyListener {
             int barraRight = lineX + 200;
 
             if (ballRight >= barraLeft && ballLeft <= barraRight) {
+                stopAnimacao(true);
+                
                 int opcao = JOptionPane.showOptionDialog(this, "A BOLA ACERTOU A BARRA", "FIM DE JOGO", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
 
                 if (opcao == JOptionPane.OK_OPTION || opcao == JOptionPane.CLOSED_OPTION) {
                     new TelaEndGame();
                     SwingUtilities.getWindowAncestor(this).dispose();
-                    animacao = false;
                 }
             }
+        }
+    }
+
+    public void stopAnimacao(Boolean stop) {
+        animacao = stop;
+        if(!animacao){
+            iniciaAnimacao();
         }
     }
 }

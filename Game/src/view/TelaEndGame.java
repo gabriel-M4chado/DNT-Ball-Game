@@ -5,8 +5,10 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
-public class TelaEndGame extends JFrame implements ActionListener{
+public class TelaEndGame extends JFrame implements ActionListener, WindowListener{
     private JTable jtTabela;
     private DefaultTableModel tabelaModel;
     private JButton jbVoltar;
@@ -31,8 +33,11 @@ public class TelaEndGame extends JFrame implements ActionListener{
         add(new JScrollPane(jtTabela), BorderLayout.CENTER);
         add(containerButton, BorderLayout.SOUTH);
 
+        addWindowListener(this);
+
         setVisible(true);
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     }
 
     private void criandoTabela() {
@@ -64,5 +69,36 @@ public class TelaEndGame extends JFrame implements ActionListener{
         if (e.getSource() == jbSair) {
             dispose();
         }
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        if (!Avisos.confirmaSairTelaCadastro(TelaEndGame.this, "Deseja Realmente sair do jogo ?")) {
+            return ;
+        }
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
     }
 }

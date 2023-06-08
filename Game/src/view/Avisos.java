@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class Avisos {
 
-    public static void confirmaSairTelaCadastro(JFrame frame, String frase) {
+    public static boolean confirmaSairTelaCadastro(JFrame frame, String frase) {
         int opcao = JOptionPane.showConfirmDialog(
                 frame,
                 frase,
@@ -14,7 +14,10 @@ public class Avisos {
         if (opcao == JOptionPane.YES_OPTION) {
             new LoginMenu();
             frame.dispose();
+            return true;
         }
+        
+        return false;
     }
 
     public static void geraMensagemErro(String fraseErro) {
