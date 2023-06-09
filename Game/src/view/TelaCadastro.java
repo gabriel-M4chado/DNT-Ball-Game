@@ -172,7 +172,8 @@ public class TelaCadastro extends JFrame implements ActionListener {
                 return ;
             }
 
-            JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso.");
+            /* JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso."); */
+            Avisos.geraMensagemSucesso(telaCadastro, "Cadastro salvo com sucesso!");
         }
     }
 }

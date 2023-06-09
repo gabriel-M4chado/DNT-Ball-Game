@@ -23,4 +23,13 @@ public class Avisos {
     public static void geraMensagemErro(String fraseErro) {
         JOptionPane.showMessageDialog(null, fraseErro, "ERRO", JOptionPane.ERROR_MESSAGE);
     }
+
+    public static void geraMensagemSucesso(JFrame frame ,String frase) {
+        int opcao = JOptionPane.showOptionDialog(null, frase , null,  JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+
+        if (opcao == JOptionPane.OK_OPTION || opcao == JOptionPane.CLOSED_OPTION) {
+            new LoginMenu();
+            frame.dispose();
+        }
+    }
 }
