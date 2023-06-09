@@ -57,6 +57,7 @@ public class TelaEndGame extends JFrame implements ActionListener, WindowListene
         jtTabela = new JTable(tabelaModel);
         jtTabela.setModel(tabelaModel);
         jtTabela.setVisible(true);
+        jtTabela.setEnabled(false);
     }
 
     @Override
