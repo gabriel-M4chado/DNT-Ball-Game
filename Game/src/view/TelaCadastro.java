@@ -1,6 +1,9 @@
 package view;
 
 import javax.swing.*;
+
+import dao.CadastroDAO;
+
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -172,7 +175,7 @@ public class TelaCadastro extends JFrame implements ActionListener {
                 return ;
             }
 
-            /* JOptionPane.showMessageDialog(null, "Cadastro salvo com sucesso."); */
+            new CadastroDAO();
             Avisos.geraMensagemSucesso(telaCadastro, "Cadastro salvo com sucesso!");
         }
     }
