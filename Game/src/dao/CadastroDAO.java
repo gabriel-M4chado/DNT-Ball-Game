@@ -9,10 +9,13 @@ import model.Cadastro;
 
 public class CadastroDAO {
     private databaseDAO database;
+    private String sql;
+    private PreparedStatement statement;
+    private ResultSet resultSet;
 
     public CadastroDAO() {
         database = new ConexaoSqlDAO();
-        database.connectBD("localhost", "root", "****", "SUCOS");
+        database.connectBD("localhost", "root", "****", "dntBallGame");
         System.out.println(getAllCadastros());
     }
 
@@ -20,18 +23,20 @@ public class CadastroDAO {
         List<String> clients = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM TABELA_DE_VENDEDORES";
-            PreparedStatement statement = database.getConnection().prepareStatement(sql);
-            ResultSet resultSet = statement.executeQuery();
+            sql = "select * from cadastro";
+            statement = database.getConnection().prepareStatement(sql);
+            resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
 
-                String clientName = resultSet.getString("NOME");
+                String clientName = resultSet.getString("nome");
 
-/*                 Cadastro cadastro = new Cadastro();
-                cadastro.setNome(clientName); */
+                /*
+                 * Cadastro cadastro = new Cadastro();
+                 * cadastro.setNome(clientName);
+                 */
                 clients.add(clientName);
-                
+
             }
 
             resultSet.close();
@@ -41,5 +46,25 @@ public class CadastroDAO {
         }
 
         return clients;
+    }
+
+    public boolean vericaCodigo(String codigo) {
+        try {
+            statement = database.getConnection()
+                    .prepareStatement("select id from playerScore as ps where ps.codigo = ?");
+            statement.setString(1, codigo);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                if (resultSet.getInt("id") > 0) {
+                    return true;
+                }
+            }
+            return false;
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

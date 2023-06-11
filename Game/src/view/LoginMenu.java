@@ -1,11 +1,12 @@
 package view;
 
 import javax.swing.*;
+import dao.CadastroDAO;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LoginMenu extends JFrame implements ActionListener{
+public class LoginMenu extends JFrame implements ActionListener {
     private JFrame telaLogin;
     private JPanel containerTela;
     private JLabel codigoLabel;
@@ -13,7 +14,7 @@ public class LoginMenu extends JFrame implements ActionListener{
     private JButton playGameButton;
     private JButton criaContaButton;
 
-    public LoginMenu(){
+    public LoginMenu() {
         telaLogin = new JFrame("BEM-VINDO");
         telaLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -34,7 +35,7 @@ public class LoginMenu extends JFrame implements ActionListener{
         atributosGrid.gridy = 0;
         containerTela.add(codigoField, atributosGrid);
 
-        /* Aqui organiza os botões em uma única linha horizontal*/
+        /* Aqui organiza os botões em uma única linha horizontal */
         JPanel containerButton = new JPanel(new FlowLayout());
         atributosGrid.gridx = 1;
         atributosGrid.gridy = 1;
@@ -54,7 +55,7 @@ public class LoginMenu extends JFrame implements ActionListener{
         playGameButton.addActionListener(this);
         containerButton.add(playGameButton);
 
-        containerTela.add(containerButton,atributosGrid);
+        containerTela.add(containerButton, atributosGrid);
 
         telaLogin.getContentPane().add(containerTela);
 
@@ -68,11 +69,11 @@ public class LoginMenu extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == playGameButton) {
-            if (!codigoField.getText().isEmpty()) {
+            if (!codigoField.getText().isEmpty() && vericaCodigoJogador(codigoField.getText())) {
                 new TelaGame();
-            }else{
-                Avisos.geraMensagemErro("Insira o código da conta antes de jogar.");
-                return ;
+            } else {
+                Avisos.geraMensagemErro("Insira um código válido para jogar. Caso não tenha se cadastrado, clique em CRIAR CONTA!");
+                return;
             }
         }
 
@@ -81,5 +82,10 @@ public class LoginMenu extends JFrame implements ActionListener{
         }
 
         telaLogin.dispose();
+    }
+
+    public boolean vericaCodigoJogador(String codigo) {
+        CadastroDAO cadastro = new CadastroDAO();
+        return cadastro.vericaCodigo(codigo);
     }
 }
