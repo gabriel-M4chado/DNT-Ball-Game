@@ -82,7 +82,7 @@ public class TelaEndGame extends JFrame implements ActionListener, WindowListene
 
     @Override
     public void windowClosing(WindowEvent e) {
-        if (!Avisos.confirmaSairTelaCadastro(TelaEndGame.this, "Deseja Realmente sair do jogo ?")) {
+        if (!Avisos.confirmaSairTelaCadastro(TelaEndGame.this, "Deseja Realmente voltar ao menu principal ?")) {
             return ;
         }
     }

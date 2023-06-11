@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -32,6 +33,8 @@ public class BallGame extends JPanel implements KeyListener {
     private Thread thread;
     private Boolean animacao;
 
+    private int pontos = 0;
+
     public BallGame() {
         addKeyListener(this);
 
@@ -50,6 +53,18 @@ public class BallGame extends JPanel implements KeyListener {
         ball.setColor(Color.BLACK);
         int lineY = getHeight() - 20;
         ball.fillRect(lineX, lineY, lineWidth, 10);
+
+        // Tela score
+        ball.setColor(Color.BLUE);
+        ball.setFont(new Font("Arial", Font.BOLD, 14));
+        String scoreText = "Pontos: " + pontos;
+        int textX = 10;  
+        int textY = 20;
+        int textWidth = 150;
+        int textHeight = 20;
+        ball.fillRect(textX, textY, textWidth, textHeight);
+        ball.setColor(Color.WHITE);
+        ball.drawString(scoreText, textX + 5, textY + 15); 
     }
 
     @Override
@@ -114,7 +129,7 @@ public class BallGame extends JPanel implements KeyListener {
                     } catch (InterruptedException ex) {
                         System.out.println("Thread sleep foi interrompida: " + ex.getMessage());
                     }
-
+                    
                     repaint();
                 }
             }
@@ -126,7 +141,7 @@ public class BallGame extends JPanel implements KeyListener {
     private void verificaColisaoBall() {
         int ballTop = (int) (eixoY - raioBall);
         int ballBottom = (int) (eixoY + raioBall);
-        int lineY = getHeight() - 20;
+        int lineY = getHeight() - 10;
         int barraBottom = lineY + 40;
 
         if (ballBottom >= lineY && ballTop <= barraBottom) {
@@ -134,23 +149,26 @@ public class BallGame extends JPanel implements KeyListener {
             int ballRight = (int) (eixoX + raioBall);
             int barraLeft = lineX;
             int barraRight = lineX + 200;
-
+            
             if (ballRight >= barraLeft && ballLeft <= barraRight) {
                 stopAnimacao(true);
-                
-                int opcao = JOptionPane.showOptionDialog(this, "A BOLA ACERTOU A BARRA", "FIM DE JOGO", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+
+                int opcao = JOptionPane.showOptionDialog(this, "A BOLA ACERTOU A BARRA", "FIM DE JOGO",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
 
                 if (opcao == JOptionPane.OK_OPTION || opcao == JOptionPane.CLOSED_OPTION) {
                     new TelaEndGame();
                     SwingUtilities.getWindowAncestor(this).dispose();
                 }
-            }
+            } 
+
+            pontos++;
         }
     }
 
     public void stopAnimacao(Boolean stop) {
         animacao = stop;
-        if(!animacao){
+        if (!animacao) {
             iniciaAnimacao();
         }
     }
