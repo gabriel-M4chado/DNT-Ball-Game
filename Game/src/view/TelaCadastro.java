@@ -32,8 +32,10 @@ public class TelaCadastro extends JFrame implements ActionListener {
     private JButton jbSalvar;
     private JButton jbCancelar;
     private String fraseAviso = "Você não finalizou o cadastro, tem certeza que deseja sair ?";
+    private String jogadorCodigo;
 
-    public TelaCadastro() {
+    public TelaCadastro(String codigoJogador) {
+        this.jogadorCodigo = codigoJogador;
         this.telaCadastro = new JFrame("Cadastro");
 
         telaCadastro.addWindowListener(new WindowAdapter() {
@@ -103,6 +105,10 @@ public class TelaCadastro extends JFrame implements ActionListener {
         atributosGrid.gridy = 1;
         atributosGrid.gridwidth = 1;
         containerTela.add(lblCode, atributosGrid);
+
+        if (!jogadorCodigo.isEmpty()) {
+            jtfCode.setText(jogadorCodigo);
+        }
 
         atributosGrid.gridx = 3;
         atributosGrid.gridy = 1;
