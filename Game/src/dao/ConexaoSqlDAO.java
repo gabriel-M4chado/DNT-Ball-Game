@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import view.Avisos;
+
 public class ConexaoSqlDAO implements databaseDAO {
     private Connection conexaoBD;
     private String jdbcURL;
@@ -16,6 +18,7 @@ public class ConexaoSqlDAO implements databaseDAO {
             System.out.println("Conectado ao banco!");
         } catch (SQLException e) {
             System.out.println("Falha ao conectar com o banco de dados: " + e.getMessage());
+            Avisos.geraMensagemErro("Falha ao conectar ao jogo");
         }
     }
 
@@ -28,6 +31,7 @@ public class ConexaoSqlDAO implements databaseDAO {
             }
         } catch (SQLException e) {
             System.err.println("Falha ao disconectar com o banco de dados: " + e.getMessage());
+            Avisos.geraMensagemErro("Falha ao desconectar");
         }
     }
 
@@ -36,6 +40,7 @@ public class ConexaoSqlDAO implements databaseDAO {
         try {
             return conexaoBD != null && !conexaoBD.isClosed();
         } catch (SQLException e) {
+            Avisos.geraMensagemErro("Falha ao conectar");
             System.err.println("Erro ao verificar a conexao, status: " + e.getMessage());
             return false;
         }
