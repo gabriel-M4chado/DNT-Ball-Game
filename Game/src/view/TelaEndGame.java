@@ -2,9 +2,7 @@ package view;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-
 import model.Cadastro;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +15,8 @@ public class TelaEndGame extends JFrame implements ActionListener, WindowListene
     private JButton jbVoltar;
     private JButton jbSair;
     private JButton jbSalvar;
+    private JButton jbExcluir;
+    private Cadastro cadastroDadosJt;
 
     public TelaEndGame(String tipoJogador) {
         setTitle("RESULTADO");
@@ -36,6 +36,10 @@ public class TelaEndGame extends JFrame implements ActionListener, WindowListene
             jbSalvar = new JButton("SALVAR");
             jbSalvar.addActionListener(this);
             containerButton.add(jbSalvar);
+
+            jbExcluir = new JButton("EXCLUIR");
+            jbExcluir.addActionListener(this);
+            containerButton.add(jbExcluir);
         }
         
         criandoTabela(tipoJogador);
@@ -76,7 +80,7 @@ public class TelaEndGame extends JFrame implements ActionListener, WindowListene
     private void getDadosJtable() {
         int totalRows = jtTabela.getRowCount();
         int numColumns = jtTabela.getColumnCount();
-        Cadastro cadastroDadosJt = new Cadastro();
+        cadastroDadosJt = new Cadastro();
         String dadoString;
         int dadoInt;
 
@@ -105,9 +109,10 @@ public class TelaEndGame extends JFrame implements ActionListener, WindowListene
                         break;
                 }
             }
+
+            cadastroDadosJt.atualizaCadastros(cadastroDadosJt);
         }
 
-        System.out.println(cadastroDadosJt.getNome());
     }
 
     @Override
@@ -126,6 +131,13 @@ public class TelaEndGame extends JFrame implements ActionListener, WindowListene
             Avisos.geraMensagemSucesso(TelaEndGame.this, "Dados salvo com sucesso!");
             new LoginMenu();
             dispose();
+        }
+
+        if (e.getSource() == jbExcluir) {
+            int selecionaRow = jtTabela.getSelectedRow();
+            if (selecionaRow != -1) {
+                tabelaModel.removeRow(selecionaRow);
+            }
         }
     }
 

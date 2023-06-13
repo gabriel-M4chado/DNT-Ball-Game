@@ -1,5 +1,9 @@
 package model;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
+import dao.CadastroDAO;
 
 public class Cadastro {
     private String nome;
@@ -9,6 +13,7 @@ public class Cadastro {
     private String uf;
     private String complemento;
     private int pontos;
+    private CadastroDAO cadastroDAO;
 
     public String getNome() {
         return nome;
@@ -69,4 +74,12 @@ public class Cadastro {
 		Cadastro other = (Cadastro) obj;
 		return codigoJogador == other.codigoJogador;
 	}
+
+    public void atualizaCadastros(Cadastro dadosCadastro){
+        cadastroDAO = new CadastroDAO();
+    }
+
+    public List<String> getAllCadastros(){
+        return cadastroDAO.getAllCadastros();
+    }
 }

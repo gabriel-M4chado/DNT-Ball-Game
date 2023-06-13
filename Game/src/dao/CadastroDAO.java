@@ -23,8 +23,9 @@ public class CadastroDAO {
         List<String> clients = new ArrayList<>();
 
         try {
-            sql = "select * from cadastro";
+            sql = "select * from cadastro where isAdm != ?";
             statement = database.getConnection().prepareStatement(sql);
+            statement.setBoolean(1, true);
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
