@@ -2,6 +2,9 @@ package view;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
+import model.Cadastro;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,8 +16,9 @@ public class TelaEndGame extends JFrame implements ActionListener, WindowListene
     private DefaultTableModel tabelaModel;
     private JButton jbVoltar;
     private JButton jbSair;
+    private JButton jbSalvar;
 
-    public TelaEndGame() {
+    public TelaEndGame(String tipoJogador) {
         setTitle("RESULTADO");
         setLayout(new BorderLayout());
         setSize(600, 200);
@@ -28,8 +32,13 @@ public class TelaEndGame extends JFrame implements ActionListener, WindowListene
         JPanel containerButton = new JPanel();
         containerButton.add(jbVoltar);
         containerButton.add(jbSair);
-
-        criandoTabela();
+        if (tipoJogador == "adm") {
+            jbSalvar = new JButton("SALVAR");
+            jbSalvar.addActionListener(this);
+            containerButton.add(jbSalvar);
+        }
+        
+        criandoTabela(tipoJogador);
         add(new JScrollPane(jtTabela), BorderLayout.CENTER);
         add(containerButton, BorderLayout.SOUTH);
 
@@ -40,8 +49,8 @@ public class TelaEndGame extends JFrame implements ActionListener, WindowListene
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     }
 
-    private void criandoTabela() {
-        tabelaModel = new DefaultTableModel(new Object[] { "COD", "NOME", "UF", "TEMPO" }, 0);
+    private void criandoTabela(String tipoJogador) {
+        tabelaModel = new DefaultTableModel(new Object[] { "COD", "NOME", "UF", "PONTOS" }, 0);
         tabelaModel.setRowCount(0);
 
         String[][] dadosTabela = {
@@ -57,7 +66,48 @@ public class TelaEndGame extends JFrame implements ActionListener, WindowListene
         jtTabela = new JTable(tabelaModel);
         jtTabela.setModel(tabelaModel);
         jtTabela.setVisible(true);
-        jtTabela.setEnabled(false);
+        if (tipoJogador == "adm") {
+            jtTabela.setEnabled(true);
+        } else {
+            jtTabela.setEnabled(false);
+        }
+    }
+
+    private void getDadosJtable() {
+        int totalRows = jtTabela.getRowCount();
+        int numColumns = jtTabela.getColumnCount();
+        Cadastro cadastroDadosJt = new Cadastro();
+        String dadoString;
+        int dadoInt;
+
+        for (int i = 0; i < totalRows; i++) {
+            for (int j = 0; j < numColumns; j++) {
+                switch (j) {
+                    case 0:
+                        dadoString = (String) jtTabela.getValueAt(i, j);
+                        cadastroDadosJt.setCodigoJogador(dadoString);
+                        break;
+                    case 1:
+                        dadoString = (String) jtTabela.getValueAt(i, j);
+                        cadastroDadosJt.setNome(dadoString);
+                        break;
+                    case 2:
+                        dadoString = (String) jtTabela.getValueAt(i, j);
+                        cadastroDadosJt.setUf(dadoString);
+                        break;
+                    case 3:
+                        dadoString = (String) jtTabela.getValueAt(i, j);
+                        dadoInt = Integer.parseInt(dadoString);
+                        cadastroDadosJt.setPontos(dadoInt);
+                        break;
+                    default:
+                        Avisos.geraMensagemErro("Coluna inválida. Entre em contato conosco!");
+                        break;
+                }
+            }
+        }
+
+        System.out.println(cadastroDadosJt.getNome());
     }
 
     @Override
@@ -68,6 +118,13 @@ public class TelaEndGame extends JFrame implements ActionListener, WindowListene
         }
 
         if (e.getSource() == jbSair) {
+            dispose();
+        }
+
+        if (e.getSource() == jbSalvar) {
+            getDadosJtable();
+            Avisos.geraMensagemSucesso(TelaEndGame.this, "Dados salvo com sucesso!");
+            new LoginMenu();
             dispose();
         }
     }

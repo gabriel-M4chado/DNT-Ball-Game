@@ -69,8 +69,12 @@ public class LoginMenu extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == playGameButton) {
-            if (!codigoField.getText().isEmpty() && vericaCodigoJogador(codigoField.getText())) {
-                new TelaGame();
+            if (!codigoField.getText().isEmpty()) {
+                if (vericaCodigoJogador(codigoField.getText())) {
+                    new TelaGame("adm");
+                } else {
+                    new TelaGame("jogador");
+                }
             } else {
                 Avisos.geraMensagemErro("Insira um código válido para jogar. Caso não tenha se cadastrado, clique em CRIAR CONTA!");
                 return;
@@ -86,6 +90,10 @@ public class LoginMenu extends JFrame implements ActionListener {
 
     public boolean vericaCodigoJogador(String codigo) {
         CadastroDAO cadastro = new CadastroDAO();
-        return cadastro.vericaCodigo(codigo);
+
+        if (cadastro.vericaCodigo(codigo) == "adm") {
+            return true;
+        }
+        return false;
     }
 }

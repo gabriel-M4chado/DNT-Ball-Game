@@ -29,13 +29,9 @@ public class CadastroDAO {
 
             while (resultSet.next()) {
 
-                String clientName = resultSet.getString("nome");
+                String cadastroNome = resultSet.getString("nome");
 
-                /*
-                 * Cadastro cadastro = new Cadastro();
-                 * cadastro.setNome(clientName);
-                 */
-                clients.add(clientName);
+                clients.add(cadastroNome);
 
             }
 
@@ -48,23 +44,27 @@ public class CadastroDAO {
         return clients;
     }
 
-    public boolean vericaCodigo(String codigo) {
+    public String vericaCodigo(String codigo) {
+        String tipoJogador = "";
         try {
-            statement = database.getConnection()
-                    .prepareStatement("select id from playerScore as ps where ps.codigo = ?");
+            sql = "select ps.id, ct.isAdm from playerScore as ps inner join cadastro as ct on ps.id = ct.idJogador where ps.codigo = ? order by ps.id";
+            statement = database.getConnection().prepareStatement(sql);
             statement.setString(1, codigo);
             resultSet = statement.executeQuery();
-
             while (resultSet.next()) {
-                if (resultSet.getInt("id") > 0) {
-                    return true;
+                if (resultSet.getInt("ps.id") > 0) {
+                    if(resultSet.getInt("ct.isAdm") == 1){
+                        tipoJogador =  "adm";
+                    }else {
+                        tipoJogador = "jogador";
+                    }
                 }
             }
-            return false;
             
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+
+        return tipoJogador;
     }
 }

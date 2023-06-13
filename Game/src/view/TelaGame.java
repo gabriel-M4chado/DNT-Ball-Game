@@ -7,9 +7,9 @@ import javax.swing.*;
 public class TelaGame{
     private JFrame jfTelaGame;
 
-    public TelaGame() {
+    public TelaGame(String tipoJogador) {
         jfTelaGame = new JFrame("Game");
-        BallGame ball = new BallGame();
+        BallGame ball = new BallGame(tipoJogador);
 
         jfTelaGame.addWindowListener(new WindowAdapter() {
             @Override

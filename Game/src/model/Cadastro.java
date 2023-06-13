@@ -8,6 +8,7 @@ public class Cadastro {
     private String sexo;
     private String uf;
     private String complemento;
+    private int pontos;
 
     public String getNome() {
         return nome;
@@ -44,6 +45,12 @@ public class Cadastro {
     }
     public void setComplemento(String complemento) {
         this.complemento = complemento;
+    }
+    public int getPontos() {
+        return pontos;
+    }
+    public void setPontos(int pontos) {
+        this.pontos = pontos;
     }
 
     @Override
