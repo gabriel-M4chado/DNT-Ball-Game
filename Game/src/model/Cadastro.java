@@ -6,6 +6,7 @@ import java.util.Objects;
 import dao.CadastroDAO;
 
 public class Cadastro {
+    private String id;
     private String nome;
     private String email;
     private String codigoJogador;
@@ -15,6 +16,12 @@ public class Cadastro {
     private int pontos;
     private CadastroDAO cadastroDAO;
 
+    public String getId() {
+        return id;
+    }
+    public void setId(String id) {
+        this.id = id;
+    }
     public String getNome() {
         return nome;
     }
@@ -79,7 +86,8 @@ public class Cadastro {
         cadastroDAO = new CadastroDAO();
     }
 
-    public List<String> getAllCadastros(){
-        return cadastroDAO.getAllCadastros();
+    public boolean removeCadastro(){
+        cadastroDAO = new CadastroDAO();
+        return cadastroDAO.deleteCadastro(getId());
     }
 }

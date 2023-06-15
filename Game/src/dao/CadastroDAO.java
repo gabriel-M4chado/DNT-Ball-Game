@@ -16,23 +16,25 @@ public class CadastroDAO {
     public CadastroDAO() {
         database = new ConexaoSqlDAO();
         database.connectBD("localhost", "root", "****", "dntBallGame");
-        System.out.println(getAllCadastros());
     }
 
-    public List<String> getAllCadastros() {
-        List<String> clients = new ArrayList<>();
+    public List<Cadastro> getAllCadastros() {
+        List<Cadastro> cadastro = new ArrayList<>();
 
         try {
-            sql = "select * from cadastro where isAdm != ?";
+            sql = "select ct.id, ps.codigo, ct.nome, ed.uf, ps.pontos from  cadastro as ct left join playerScore as ps on ct.idJogador = ps.id left join endereco as ed on ct.idEndereco = ed.id order by ps.pontos";
             statement = database.getConnection().prepareStatement(sql);
-            statement.setBoolean(1, true);
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
+                Cadastro dadosCadastro = new Cadastro();
+                dadosCadastro.setId(resultSet.getString("ct.id"));
+                dadosCadastro.setCodigoJogador(resultSet.getString("ps.codigo"));
+                dadosCadastro.setNome(resultSet.getString("ct.nome"));
+                dadosCadastro.setUf(resultSet.getString("ed.uf"));
+                dadosCadastro.setPontos(resultSet.getInt("ps.pontos"));
 
-                String cadastroNome = resultSet.getString("nome");
-
-                clients.add(cadastroNome);
+                cadastro.add(dadosCadastro);
 
             }
 
@@ -42,7 +44,7 @@ public class CadastroDAO {
             e.printStackTrace();
         }
 
-        return clients;
+        return cadastro;
     }
 
     public String vericaCodigo(String codigo) {
@@ -54,18 +56,31 @@ public class CadastroDAO {
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 if (resultSet.getInt("ps.id") > 0) {
-                    if(resultSet.getInt("ct.isAdm") == 1){
-                        tipoJogador =  "adm";
-                    }else {
+                    if (resultSet.getInt("ct.isAdm") == 1) {
+                        tipoJogador = "adm";
+                    } else {
                         tipoJogador = "jogador";
                     }
                 }
             }
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return tipoJogador;
+    }
+
+    public boolean deleteCadastro(String id) {
+        try {
+            sql = "delete from cadastro where id = ?";
+            statement = database.getConnection().prepareStatement(sql);
+            statement.setString(1, id);
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

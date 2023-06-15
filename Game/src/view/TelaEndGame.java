@@ -2,12 +2,15 @@ package view;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import dao.CadastroDAO;
 import model.Cadastro;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.Arrays;
+import java.util.List;
 
 public class TelaEndGame extends JFrame implements ActionListener, WindowListener{
     private JTable jtTabela;
@@ -54,17 +57,37 @@ public class TelaEndGame extends JFrame implements ActionListener, WindowListene
     }
 
     private void criandoTabela(String tipoJogador) {
-        tabelaModel = new DefaultTableModel(new Object[] { "COD", "NOME", "UF", "PONTOS" }, 0);
+        if(tipoJogador == "adm") {
+            tabelaModel = new DefaultTableModel(new Object[] {"ID" ,"CÓDIGO", "NOME", "UF", "PONTOS" }, 0);
+        }else {
+            tabelaModel = new DefaultTableModel(new Object[] {"NOME", "UF", "PONTOS" }, 0);
+        }
+        
         tabelaModel.setRowCount(0);
 
-        String[][] dadosTabela = {
-                { "000", "João", "RS", "150"},
-                { "001", "KySer", "MG", "0"},
-                { "002", "Kevin" , "SP", "1"}
-        };
+        CadastroDAO cadastroDao = new CadastroDAO();
+        List<Cadastro> dados= cadastroDao.getAllCadastros();
+        String[][] dadosTabela = new String[dados.size()][5];
 
-        for (String[] value : dadosTabela) {
-            tabelaModel.addRow(value);
+        for (int i = 0; i < dados.size(); i++) {
+            Cadastro data = dados.get(i);
+            dadosTabela[i][0] = data.getId();
+            dadosTabela[i][1] = data.getCodigoJogador();
+            dadosTabela[i][2] = data.getNome();
+            dadosTabela[i][3] = data.getUf();
+            dadosTabela[i][4] = String.valueOf(data.getPontos());
+        }
+
+        if (tipoJogador != "adm") {
+            for (String[] value : dadosTabela) {
+                String [] dadosApartirdaDoNome = Arrays.copyOfRange( value, 2, value.length);
+                tabelaModel.addRow(dadosApartirdaDoNome);
+            }
+
+        } else {
+            for (String[] value : dadosTabela) {
+                tabelaModel.addRow(value);
+            }
         }
 
         jtTabela = new JTable(tabelaModel);
@@ -134,9 +157,19 @@ public class TelaEndGame extends JFrame implements ActionListener, WindowListene
         }
 
         if (e.getSource() == jbExcluir) {
-            int selecionaRow = jtTabela.getSelectedRow();
-            if (selecionaRow != -1) {
-                tabelaModel.removeRow(selecionaRow);
+            int[] selecionaRows = jtTabela.getSelectedRows();
+            for (int selectedRow : selecionaRows) {
+                if (selectedRow >=0 && selectedRow < jtTabela.getRowCount()) {
+                Object idSelecionado = jtTabela.getValueAt(selectedRow, 0);
+                    if (idSelecionado != null) {
+                        cadastroDadosJt = new Cadastro();
+                        cadastroDadosJt.setId(idSelecionado.toString());
+                        if (cadastroDadosJt.removeCadastro()) {
+                            tabelaModel.removeRow(selectedRow);
+                            Avisos.geraMensagemSucesso(TelaEndGame.this, "Cadastro excluido com sucesso!");
+                        }
+                    }
+                }
             }
         }
     }
