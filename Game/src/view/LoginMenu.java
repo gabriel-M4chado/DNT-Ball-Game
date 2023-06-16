@@ -71,10 +71,14 @@ public class LoginMenu extends JFrame implements ActionListener {
         if (e.getSource() == playGameButton) {
             if (!codigoField.getText().isEmpty()) {
                 String codigo = codigoField.getText();
-                if (vericaCodigoJogador(codigoField.getText())) {
-                    new TelaGame("adm", codigo);
+                String tipoJogador = vericaCodigoJogador(codigo);
+                if (tipoJogador == "adm") {
+                    new TelaGame(tipoJogador, codigo);
+                } else if(tipoJogador == "jogador") {
+                    new TelaGame(tipoJogador, codigo);
                 } else {
-                    new TelaGame("jogador", codigo);
+                    Avisos.geraMensagemErro("Insira um código válido para jogar. Caso não tenha se cadastrado, clique em CRIAR CONTA!");
+                    return;
                 }
             } else {
                 Avisos.geraMensagemErro("Insira um código válido para jogar. Caso não tenha se cadastrado, clique em CRIAR CONTA!");
@@ -89,12 +93,9 @@ public class LoginMenu extends JFrame implements ActionListener {
         telaLogin.dispose();
     }
 
-    public boolean vericaCodigoJogador(String codigo) {
+    public String vericaCodigoJogador(String codigo) {
         CadastroDAO cadastro = new CadastroDAO();
 
-        if (cadastro.vericaCodigo(codigo) == "adm") {
-            return true;
-        }
-        return false;
+        return cadastro.vericaCodigo(codigo);
     }
 }
