@@ -157,7 +157,7 @@ public class TelaEndGame extends JFrame implements ActionListener, WindowListene
 
         if (e.getSource() == jbSalvar) {
             if (getDadosJtableAdm()) {
-                JOptionPane.showMessageDialog(null, "Operation successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Dados salvos com sucesso!", "Salvar", JOptionPane.INFORMATION_MESSAGE);
             }else{
                 Avisos.geraMensagemErro("Erro ao salvar, entre em contato conosco!");
             }
