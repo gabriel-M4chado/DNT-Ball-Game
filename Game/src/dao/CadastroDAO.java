@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Cadastro;
+import view.Avisos;
 
 public class CadastroDAO {
     private databaseDAO database;
@@ -15,7 +16,7 @@ public class CadastroDAO {
 
     public CadastroDAO() {
         database = new ConexaoSqlDAO();
-        database.connectBD("localhost", "root", "****", "dntBallGame");
+        database.connectBD("localhost", "root", "!BD23gjs@#", "dntBallGame");
     }
 
     public List<Cadastro> getAllCadastros() {
@@ -82,5 +83,34 @@ public class CadastroDAO {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public void updateScore(String codigoJogador, int pontos) {
+        try {
+            sql = "update playerScore set pontos = ? where codigo = ?";
+            statement = database.getConnection().prepareStatement(sql);
+            statement.setInt(1, pontos);
+            statement.setString(2, codigoJogador);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean updateCadastro(String id, String codigoJogador, String nome, String uf, int pontos) {
+        try {
+            String sqlEndereco = "select ende.id from endereco as ende where ende.uf = '" + uf + "'";
+            String set = "set c.nome = '"+ nome + "', ps.codigo = '"+ codigoJogador +"', ps.pontos = "+ pontos +", c.idEndereco = (" + sqlEndereco + ")";
+            String where = " where c.id = " + Integer.parseInt(id);
+            sql = "update cadastro as c inner join playerScore as ps on ps.id = c.idJogador inner join endereco as ed on ed.id = c.idEndereco " + set + where;
+            statement = database.getConnection().prepareStatement(sql);
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
     }
 }

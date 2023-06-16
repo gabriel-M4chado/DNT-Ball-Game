@@ -20,8 +20,14 @@ public class TelaEndGame extends JFrame implements ActionListener, WindowListene
     private JButton jbSalvar;
     private JButton jbExcluir;
     private Cadastro cadastroDadosJt;
+    private String tipoJogador;
 
-    public TelaEndGame(String tipoJogador) {
+    public TelaEndGame(String tipoJogador, String codigo, int pontos) {
+        this.tipoJogador = tipoJogador;
+        cadastroDadosJt = new Cadastro();
+        cadastroDadosJt.setCodigoJogador(codigo);
+        cadastroDadosJt.setPontos(pontos);
+        cadastroDadosJt.atualizaPlacar();
         setTitle("RESULTADO");
         setLayout(new BorderLayout());
         setSize(600, 200);
@@ -100,32 +106,29 @@ public class TelaEndGame extends JFrame implements ActionListener, WindowListene
         }
     }
 
-    private void getDadosJtable() {
+    private Boolean getDadosJtableAdm() {
         int totalRows = jtTabela.getRowCount();
         int numColumns = jtTabela.getColumnCount();
         cadastroDadosJt = new Cadastro();
-        String dadoString;
         int dadoInt;
 
         for (int i = 0; i < totalRows; i++) {
             for (int j = 0; j < numColumns; j++) {
                 switch (j) {
                     case 0:
-                        dadoString = (String) jtTabela.getValueAt(i, j);
-                        cadastroDadosJt.setCodigoJogador(dadoString);
+                        cadastroDadosJt.setId(jtTabela.getValueAt(i, j).toString());
                         break;
                     case 1:
-                        dadoString = (String) jtTabela.getValueAt(i, j);
-                        cadastroDadosJt.setNome(dadoString);
+                        cadastroDadosJt.setCodigoJogador(jtTabela.getValueAt(i, j).toString());
                         break;
                     case 2:
-                        dadoString = (String) jtTabela.getValueAt(i, j);
-                        cadastroDadosJt.setUf(dadoString);
+                        cadastroDadosJt.setNome(jtTabela.getValueAt(i, j).toString());
                         break;
                     case 3:
-                        dadoString = (String) jtTabela.getValueAt(i, j);
-                        dadoInt = Integer.parseInt(dadoString);
-                        cadastroDadosJt.setPontos(dadoInt);
+                        cadastroDadosJt.setUf(jtTabela.getValueAt(i, j).toString());
+                        break;
+                    case 4:
+                        cadastroDadosJt.setPontos(Integer.parseInt(jtTabela.getValueAt(i, j).toString()));
                         break;
                     default:
                         Avisos.geraMensagemErro("Coluna inválida. Entre em contato conosco!");
@@ -133,9 +136,12 @@ public class TelaEndGame extends JFrame implements ActionListener, WindowListene
                 }
             }
 
-            cadastroDadosJt.atualizaCadastros(cadastroDadosJt);
+            if (!cadastroDadosJt.atualizaCadastros()) {
+                return false;
+            }
         }
 
+        return true;
     }
 
     @Override
@@ -150,10 +156,14 @@ public class TelaEndGame extends JFrame implements ActionListener, WindowListene
         }
 
         if (e.getSource() == jbSalvar) {
-            getDadosJtable();
-            Avisos.geraMensagemSucesso(TelaEndGame.this, "Dados salvo com sucesso!");
-            new LoginMenu();
-            dispose();
+            if (getDadosJtableAdm()) {
+                Avisos.geraMensagemSucesso(TelaEndGame.this, "Dados salvo com sucesso!");
+                new LoginMenu();
+                dispose();
+            }else{
+                Avisos.geraMensagemErro("Erro ao salvar, entre em contato conosco!");
+            }
+
         }
 
         if (e.getSource() == jbExcluir) {

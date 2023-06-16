@@ -36,9 +36,11 @@ public class BallGame extends JPanel implements KeyListener {
     private int pontos = 0;
 
     private String tipJogador = "";
+    private String codigo = "";
 
-    public BallGame(String tipoJogador) {
+    public BallGame(String tipoJogador, String codigo) {
         this.tipJogador = tipoJogador;
+        this.codigo = codigo;
         addKeyListener(this);
         setFocusable(true); // Dando foco ao Jpanel para receber eventos do KeyListener
         requestFocus();
@@ -159,7 +161,7 @@ public class BallGame extends JPanel implements KeyListener {
                         JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
 
                 if (opcao == JOptionPane.OK_OPTION || opcao == JOptionPane.CLOSED_OPTION) {
-                    new TelaEndGame(tipJogador);
+                    new TelaEndGame(tipJogador, codigo, pontos);
                     SwingUtilities.getWindowAncestor(this).dispose();
                 }
             } 

@@ -15,7 +15,7 @@ public class ConexaoSqlDAO implements databaseDAO {
         try {
             jdbcURL = "jdbc:mysql://localhost:3306/" + databaseName;
             conexaoBD = DriverManager.getConnection(jdbcURL, username, password);
-            System.out.println("Conectado ao banco!");
+            System.out.println("Conectado");
         } catch (SQLException e) {
             System.out.println("Falha ao conectar com o banco de dados: " + e.getMessage());
             Avisos.geraMensagemErro("Falha ao conectar ao jogo");

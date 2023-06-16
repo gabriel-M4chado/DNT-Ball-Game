@@ -1,6 +1,5 @@
 package model;
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Objects;
 
 import dao.CadastroDAO;
@@ -82,8 +81,14 @@ public class Cadastro {
 		return codigoJogador == other.codigoJogador;
 	}
 
-    public void atualizaCadastros(Cadastro dadosCadastro){
+    public void atualizaPlacar(){
         cadastroDAO = new CadastroDAO();
+        cadastroDAO.updateScore(getCodigoJogador(), getPontos());
+    }
+
+    public boolean atualizaCadastros(){
+        cadastroDAO = new CadastroDAO();
+        return cadastroDAO.updateCadastro(getId(), getCodigoJogador(), getNome(), getUf(), getPontos());
     }
 
     public boolean removeCadastro(){

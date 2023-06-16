@@ -70,10 +70,11 @@ public class LoginMenu extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == playGameButton) {
             if (!codigoField.getText().isEmpty()) {
+                String codigo = codigoField.getText();
                 if (vericaCodigoJogador(codigoField.getText())) {
-                    new TelaGame("adm");
+                    new TelaGame("adm", codigo);
                 } else {
-                    new TelaGame("jogador");
+                    new TelaGame("jogador", codigo);
                 }
             } else {
                 Avisos.geraMensagemErro("Insira um código válido para jogar. Caso não tenha se cadastrado, clique em CRIAR CONTA!");
