@@ -3,6 +3,7 @@ package view;
 import javax.swing.*;
 
 import dao.CadastroDAO;
+import model.Cadastro;
 
 import java.awt.Color;
 import java.awt.GridBagConstraints;
@@ -76,7 +77,7 @@ public class TelaCadastro extends JFrame implements ActionListener {
         containerTela.add(jtfNome, atributosGrid);
 
         lblSexo = new JLabel("Sexo:");
-        selectSexo = new JComboBox<>(new String[]{"Masculino", "Feminino"});
+        selectSexo = new JComboBox<>(new String[]{"M", "F"});
 
         atributosGrid.gridx = 2;
         atributosGrid.gridy = 0;
@@ -181,8 +182,18 @@ public class TelaCadastro extends JFrame implements ActionListener {
                 return ;
             }
 
-            new CadastroDAO();
-            Avisos.geraMensagemSucesso(telaCadastro, "Cadastro salvo com sucesso!");
+            Cadastro salvaCadastro = new Cadastro();
+            salvaCadastro.setNome(jtfNome.getText());
+            salvaCadastro.setSexo(selectSexo.getSelectedItem().toString());
+            salvaCadastro.setEmail(jtfEmail.getText());
+            salvaCadastro.setCodigoJogador(jtfCode.getText());
+            salvaCadastro.setRua(jtfRua.getText());
+            salvaCadastro.setUf(selectUf.getSelectedItem().toString());
+            if (salvaCadastro.save()) {
+                Avisos.geraMensagemSucesso(telaCadastro, "Cadastro salvo com sucesso!");
+            } else {
+                Avisos.geraMensagemErro("Erro ao salvar, entre em contato conosco!");
+            }
         }
     }
 }

@@ -10,9 +10,9 @@ import view.Avisos;
 
 public class CadastroDAO {
     private databaseDAO database;
-    private String sql;
-    private PreparedStatement statement;
-    private ResultSet resultSet;
+    private String sql = null;
+    private PreparedStatement statement = null;
+    private ResultSet resultSet = null;
 
     public CadastroDAO() {
         database = new ConexaoSqlDAO();
@@ -106,6 +106,60 @@ public class CadastroDAO {
             statement = database.getConnection().prepareStatement(sql);
             statement.executeUpdate();
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean inserePlayer(int pontos, String codigoJogador) {
+        try {
+            sql = "insert into playerScore values (default, default, ?, ?)";
+
+            statement = database.getConnection().prepareStatement(sql);
+            statement.setInt(1, pontos);
+            statement.setString(2, codigoJogador);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
+    public String retornaIdJogador(String codigo) {
+        String id = "";
+        try {
+            statement = database.getConnection().prepareStatement("select id from playerScore where codigo = ? limit 1");
+            statement.setString(1, codigo);
+            resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                id = resultSet.getString("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return id;
+    }
+
+    public boolean saveCadastro(String nome, String email, String sexo, String rua, String uf, int pontos, String codigoJogador) {
+        try {
+            inserePlayer(pontos, codigoJogador);
+            String id = retornaIdJogador(codigoJogador);
+            String sqlEndereco = "(select ende.id from endereco as ende where ende.uf like ('" + uf + "'))";
+            sql = "insert into cadastro values (default, ?, ?, ?, ?, default, "+ sqlEndereco +", ?)";
+            statement = database.getConnection().prepareStatement(sql);
+            statement.setString(1, nome);
+            statement.setString(2, email);
+            statement.setString(3, sexo);
+            statement.setString(4, rua);
+            statement.setString(5, id);
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
             return false;

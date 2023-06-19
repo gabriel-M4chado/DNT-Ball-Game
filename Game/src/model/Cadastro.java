@@ -11,7 +11,7 @@ public class Cadastro {
     private String codigoJogador;
     private String sexo;
     private String uf;
-    private String complemento;
+    private String rua;
     private int pontos;
     private CadastroDAO cadastroDAO;
 
@@ -51,11 +51,11 @@ public class Cadastro {
     public void setUf(String uf) {
         this.uf = uf;
     }
-    public String getComplemento() {
-        return complemento;
+    public String getRua() {
+        return rua;
     }
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
+    public void setRua(String rua) {
+        this.rua = rua;
     }
     public int getPontos() {
         return pontos;
@@ -94,5 +94,10 @@ public class Cadastro {
     public boolean removeCadastro(){
         cadastroDAO = new CadastroDAO();
         return cadastroDAO.deleteCadastro(getId());
+    }
+
+    public boolean save() {
+        cadastroDAO = new CadastroDAO();
+        return cadastroDAO.saveCadastro(getNome(), getEmail(), getSexo(), getRua(), getUf(), getPontos(), getCodigoJogador());
     }
 }
