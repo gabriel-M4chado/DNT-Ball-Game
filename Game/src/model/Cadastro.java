@@ -98,6 +98,24 @@ public class Cadastro {
 
     public boolean save() {
         cadastroDAO = new CadastroDAO();
-        return cadastroDAO.saveCadastro(getNome(), getEmail(), getSexo(), getRua(), getUf(), getPontos(), getCodigoJogador());
+        return cadastroDAO.saveNewCadastro(getNome(), getEmail(), getSexo(), getRua(), getUf(), getPontos(), getCodigoJogador());
+    }
+
+    public Boolean existEmail() {
+        cadastroDAO = new CadastroDAO();
+        if (cadastroDAO.emailExist(getEmail())) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public Boolean existCode() {
+        cadastroDAO = new CadastroDAO();
+        if (cadastroDAO.vericaCodigo(getCodigoJogador()) != "") {
+            return true;
+        }
+
+        return false;
     }
 }

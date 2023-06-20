@@ -147,7 +147,23 @@ public class CadastroDAO {
         return id;
     }
 
-    public boolean saveCadastro(String nome, String email, String sexo, String rua, String uf, int pontos, String codigoJogador) {
+    public Boolean emailExist(String email) {
+        try {
+            statement = database.getConnection().prepareStatement("select id from cadastro where email = ? limit 1");
+            statement.setString(1, email);
+            resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean saveNewCadastro(String nome, String email, String sexo, String rua, String uf, int pontos, String codigoJogador) {
         try {
             inserePlayer(pontos, codigoJogador);
             String id = retornaIdJogador(codigoJogador);

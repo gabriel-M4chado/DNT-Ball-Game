@@ -189,10 +189,17 @@ public class TelaCadastro extends JFrame implements ActionListener {
             salvaCadastro.setCodigoJogador(jtfCode.getText());
             salvaCadastro.setRua(jtfRua.getText());
             salvaCadastro.setUf(selectUf.getSelectedItem().toString());
-            if (salvaCadastro.save()) {
-                Avisos.geraMensagemSucesso(telaCadastro, "Cadastro salvo com sucesso!");
+            
+            if (salvaCadastro.existEmail()) {
+                Avisos.geraMensagemErro("E-mail já existe, informe um diferente!");
+            } else if (salvaCadastro.existCode()) {
+                Avisos.geraMensagemErro("Código do Jogador já existe, informe um diferente!");
             } else {
-                Avisos.geraMensagemErro("Erro ao salvar, entre em contato conosco!");
+                if (salvaCadastro.save()) {
+                    Avisos.geraMensagemSucesso(telaCadastro, "Cadastro salvo com sucesso!");
+                } else {
+                    Avisos.geraMensagemErro("Erro ao salvar, entre em contato conosco!");
+                }
             }
         }
     }
