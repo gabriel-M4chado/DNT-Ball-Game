@@ -1,10 +1,7 @@
 package view;
 
 import javax.swing.*;
-
-import dao.CadastroDAO;
 import model.Cadastro;
-
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
