@@ -110,7 +110,6 @@ public class TelaEndGame extends JFrame implements ActionListener, WindowListene
         int totalRows = jtTabela.getRowCount();
         int numColumns = jtTabela.getColumnCount();
         cadastroDadosJt = new Cadastro();
-        int dadoInt;
 
         for (int i = 0; i < totalRows; i++) {
             for (int j = 0; j < numColumns; j++) {
