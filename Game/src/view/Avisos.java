@@ -26,10 +26,12 @@ public class Avisos {
 
     public static void geraMensagemSucesso(JFrame frame ,String frase) {
         int opcao = JOptionPane.showOptionDialog(null, frase , null,  JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
-
+        
         if (opcao == JOptionPane.OK_OPTION || opcao == JOptionPane.CLOSED_OPTION) {
-            new LoginMenu();
-            frame.dispose();
+            if (!frase.contains("excluido")) {
+                new LoginMenu();
+                frame.dispose();
+            }
         }
     }
 }

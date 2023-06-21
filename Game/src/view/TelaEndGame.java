@@ -166,15 +166,20 @@ public class TelaEndGame extends JFrame implements ActionListener, WindowListene
 
         if (e.getSource() == jbExcluir) {
             int[] selecionaRows = jtTabela.getSelectedRows();
-            for (int selectedRow : selecionaRows) {
-                if (selectedRow >=0 && selectedRow < jtTabela.getRowCount()) {
-                Object idSelecionado = jtTabela.getValueAt(selectedRow, 0);
-                    if (idSelecionado != null) {
-                        cadastroDadosJt = new Cadastro();
-                        cadastroDadosJt.setId(idSelecionado.toString());
-                        if (cadastroDadosJt.removeCadastro()) {
-                            tabelaModel.removeRow(selectedRow);
-                            Avisos.geraMensagemSucesso(TelaEndGame.this, "Cadastro excluido com sucesso!");
+            if (selecionaRows.length == 0) {
+                Avisos.geraMensagemErro("Nenhum cadastro selecionado para excluir. Selecione um cadastro!");
+            } else {
+                for (int selectedRow : selecionaRows) {
+                    if (selectedRow >=0 && selectedRow < jtTabela.getRowCount()) {
+                    Object idSelecionado = jtTabela.getValueAt(selectedRow, 0);
+                        if (idSelecionado != null) {
+                            cadastroDadosJt = new Cadastro();
+                            cadastroDadosJt.setId(idSelecionado.toString());
+                            if (cadastroDadosJt.removeCadastro()) {
+                                tabelaModel.removeRow(selectedRow);
+                                Avisos.geraMensagemSucesso(TelaEndGame.this, "Cadastro excluido com sucesso!");
+                                return;
+                            }
                         }
                     }
                 }
