@@ -23,7 +23,7 @@ public class CadastroDAO {
         List<Cadastro> cadastro = new ArrayList<>();
 
         try {
-            sql = "select ct.id, ps.codigo, ct.nome, ed.uf, ps.pontos from  cadastro as ct left join playerScore as ps on ct.idJogador = ps.id left join endereco as ed on ct.idEndereco = ed.id order by ps.pontos";
+            sql = "select ct.id, ps.codigo, ct.nome, ed.uf, ps.pontos from  cadastro as ct left join playerScore as ps on ct.idJogador = ps.id left join endereco as ed on ct.idEndereco = ed.id order by ps.pontos desc";
             statement = database.getConnection().prepareStatement(sql);
             resultSet = statement.executeQuery();
 
