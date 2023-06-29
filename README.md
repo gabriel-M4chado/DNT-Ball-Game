@@ -22,7 +22,7 @@
 ```
 git clone https://github.com/gabriel-M4chado/DNT-Ball-Game.git
 ```
-<p>2. <a href="https://dev.mysql.com/downloads/connector/j/" target="external">Realize o download e configure o driver JDBC por exemplo</a></p>
+<p>2. <a href="https://dev.mysql.com/downloads/connector/j/" target="external">Realize o download e configure o driver JDBC</a></p>
 
 <p>3. <a href="https://dev.mysql.com/doc/workbench/en/wb-admin-export-import-management.html" target="external">Importe os dados para criação do Banco</a></p>
 
