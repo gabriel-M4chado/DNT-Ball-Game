@@ -34,5 +34,5 @@ Tecnologias utilizadas:
 
 ## View in Portuguese
 
-<a href="README-English.md">[CLICK HERE]</a>
+<a href="README.md">[CLICK HERE]</a>
 
