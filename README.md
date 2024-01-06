@@ -29,7 +29,7 @@ git clone https://github.com/gabriel-M4chado/DNT-Ball-Game.git
   
 <h2>💻 Tecnologias utilizadas:</h2>
 
-[![My Skills](https://skillicons.dev/icons?i=java&theme=light)](https://skillicons.dev)
+[![My Skills](https://skillicons.dev/icons?i=java&theme=light)](https://skillicons.dev) & Swing
 
 
 ## Para ler esse conteúdo em inglês:
