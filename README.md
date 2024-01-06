@@ -13,7 +13,7 @@
 <h3>Jogador ADM</h3>
 <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExanV1Z292M3d1dzJrc291MjVvaXQ2Mnd4amZ0ZXU0M2d4cTRmOWthcSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZVWetQvvlZN2rLAj9g/giphy.gif" alt="project-screenshot" width="400" height="400/">
 
-<h2><a href="https://docs.google.com/presentation/d/1oymLZ7CbvJyk7Rr-QNak5_-YkVRa0jTW/edit?usp=sharing&ouid=113291002253261121856&rtpof=true&sd=true" target="external">Para mais detalhes do Projeto clique aqui</a></h2>
+<h2>Para mais detalhes do Projeto<a href="https://docs.google.com/presentation/d/1oymLZ7CbvJyk7Rr-QNak5_-YkVRa0jTW/edit?usp=sharing&ouid=113291002253261121856&rtpof=true&sd=true" target="external"> clique aqui</a></h2>
 
 <h2>🛠️ Installation Steps:</h2>
 
@@ -30,5 +30,4 @@ git clone https://github.com/gabriel-M4chado/DNT-Ball-Game.git
 <h2>💻 Built with</h2>
 
 Tecnologias utilizadas:
-
-*   JAVA
+[![My Skills](https://skillicons.dev/icons?i=java&theme=light)](https://skillicons.dev)
