@@ -1,6 +1,6 @@
 <h1 align="center" id="title">Game Ball in Java</h1>
 
-<p align="center"><img src="https://socialify.git.ci/gabriel-M4chado/DNT-Ball-Game/image?forks=1&amp;issues=1&amp;language=1&amp;name=1&amp;owner=1&amp;theme=Light" alt="project-image"></p>
+<p align="center"><img src="https://socialify.git.ci/gabriel-M4chado/DNT-Ball-Game/image?language=1&amp;name=1&amp;owner=1&amp;theme=Light" alt="project-image"></p>
 
 <p id="description">O jogo de bola quicando em Java é um jogo clássico estilo arcade que requer reflexos rápidos e controle preciso onde consiste em uma tela inicial , uma tela de cadastro, um tela do jogo e uma tela de resultado no final do jogo.</p>
 
